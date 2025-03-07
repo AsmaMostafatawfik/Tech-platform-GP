@@ -1,0 +1,52 @@
+@using GP.Data.Entities;
+@model List<ShoppingCart>
+
+<div class="bg-container">
+    <div class="overlay-content">
+        <h1 class="display-4">Shopping Cart</h1>
+        <p><a href="Index" class="text-white">Home</a> / Shopping Cart</p>
+    </div>
+</div>
+@{
+    decimal total = 0;
+}
+
+<div class="cart-container">
+    <h2 class="text-center mb-4"><i class="fas fa-shopping-cart"></i> Your Cart</h2>
+    <div id="cart-items"></div>
+    @foreach (var item in Model)
+    {
+    <div class="cart-card mb-3">
+            @if( item.Product!=null&&item.Product.Image !=null ){
+            var img = Convert.ToBase64String(item.Product.Image);
+            var path = $"data:image/png;base64,{img}";
+
+            <img src="@path" alt="@item.Product.Name">
+            <div class="cart-info">
+                <h5>@item.Product.Name</h5>
+                <p>Quantity: @item.Quantity</p>
+                @{
+                    total += item.Product.Price * item.Quantity;
+                }
+                <span class="cart-total">@(item.Product.Price*item.Quantity)</span>
+            </div>
+            <button class="delete-btn" onclick="removeItem(@item.CartID})">
+                <i class="fas fa-trash"></i>
+        </button>
+            }
+            else
+            {
+            <p>Product information is unavailable.</p>
+            }
+    </div>
+           
+        }
+        <hr>
+        <h4 class="text-end">Total: <span id="cart-total">$@total</span></h4>
+        @* <button class="btn btn-warning checkout-btn">Proceed to Pay</button> *@
+        <a class="btn btn-warning checkout-btn text-white text-center d-block" asp-area="" asp-controller="PaymentTransaction" asp-action="Index">
+        Proceed to Pay
+    </a>
+    </div>
+    
+    

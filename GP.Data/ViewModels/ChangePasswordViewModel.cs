@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace E_commerce_platform.ViewModels
+namespace GP.Data.ViewModels
 {
     public class ChangePasswordViewModel
     {

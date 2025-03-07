@@ -1,0 +1,74 @@
+@model  GP.Data.Entities.Review
+
+@{
+    ViewData["Title"] = "Add Review";
+    Layout = "_Layout";
+}
+
+<!-- Background Image Container -->
+<div class="bg-container">
+    <img src="/img/R.jpg" alt="Review Banner" class="bg-image">
+    <div class="overlay-content">
+        <h1 class="display-4 mb-3 mt-0 mt-lg-5 text-white text-uppercase">Review</h1>
+        <div class="d-inline-flex mb-lg-5">
+            <p class="m-0 text-white"><a class="text-white" href="Index">Home</a></p>
+            <p class="m-0 text-white px-2">/</p>
+            <p class="m-0 text-white">Review</p>
+             <p class="m-0 text-white px-2">/</p>
+            <p class="m-0 text-white">Add Review</p>
+        </div>
+    </div>
+</div>
+
+
+<!-- Review Form Section -->
+<div class="container review-container">
+    <h2 class="text-center fw-bold">Leave a Review</h2>
+
+    <form asp-action="AddReview" method="post" enctype="multipart/form-data" class="card p-4 shadow-lg bg-light text-dark w-50">
+        <input type="hidden" name="ProductID" value="@Model.ProductID" />
+
+
+        <!-- Star Rating -->
+        <div class="mb-3 text-center">
+            <label class="form-label">Your Rating</label>
+            <div id="star-rating" class="d-flex justify-content-center">
+                <i class="fa fa-star" data-value="1"></i>
+                <i class="fa fa-star" data-value="2"></i>
+                <i class="fa fa-star" data-value="3"></i>
+                <i class="fa fa-star" data-value="4"></i>
+                <i class="fa fa-star" data-value="5"></i>
+                 <i class="fa fa-star" data-value="6"></i>
+                <i class="fa fa-star" data-value="7"></i>
+                <i class="fa fa-star" data-value="8"></i>
+                <i class="fa fa-star" data-value="9"></i>
+                <i class="fa fa-star" data-value="10"></i>
+            </div>
+            <input type="hidden" asp-for="Rating" id="Rating" required>
+            <span asp-validation-for="Rating" class="text-danger"></span>
+        </div>
+
+        <!-- Comment -->
+        <div class="mb-3">
+            <label class="form-label">Your Comment</label>
+            <textarea class="form-control" asp-for="Comment" rows="4" required></textarea>
+            <span asp-validation-for="Comment" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Submit Review</button>
+    </form>
+</div>
+
+<!-- Star Rating Script -->
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            $("#star-rating i").click(function() {
+                var value = $(this).data("value");
+                $("#Rating").val(value);
+                $("#star-rating i").removeClass("text-warning").addClass("text-secondary");
+                $(this).prevAll().addBack().addClass("text-warning");
+            });
+        });
+    </script>
+}

@@ -1,3 +1,4 @@
+using GP.Business.Interfaces;
 using GP.Business.Services;
 using GP.Data.Data;
 using GP.Data.Entities;
@@ -15,7 +16,10 @@ namespace Ecommerce_GP
 
 
             // Register Services
+            builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddScoped<ReviewService>();
+
+
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();

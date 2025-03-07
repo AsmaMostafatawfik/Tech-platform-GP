@@ -1,5 +1,52 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿﻿﻿@* @model List<E_commerce_platform.Models.Product> *@
+
+
+<!-- Background Image Section -->
+<div class="bg-container">
+    <img src="/img/Product.jpg" alt="Review Banner" class="bg-image">
+    <div class="overlay-content">
+        <h1 class="display-4 mb-3 mt-0 mt-lg-5 text-white text-uppercase">Products</h1>
+        <div class="d-inline-flex mb-lg-5">
+            <p class="m-0 text-white"><a class="text-white" href="Index">Home</a></p>
+            <p class="m-0 text-white px-2">/</p>
+            <p class="m-0 text-white">Products</p>
+        </div>
+    </div>
+</div>
+
+<!-- Product Cards Section -->
+<div class="container product-container">
+    <h2 class="text-center fw-bold mb-4">You Can Shop New ..</h2>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @foreach (var product in Model)
+        {
+            <div class="col">
+                <div class="card h-100 custom-card shadow-lg">
+                    <div class="image-container">
+                        @if (product.Image != null)
+                        {
+                            var img = Convert.ToBase64String(product.Image);
+                            var path = $"data:image/png;base64,{img}";
+                            <img src="@path" alt="@product.Name" class="card-img-top">
+                        }
+                    </div>
+                <div class="card-body text-center">
+                        <h5 class="card-title">@product.Name.ToString()</h5>
+                        <p class="product-price">@product.Price.ToString()$</p>
+                    <p class="card-text">Short product description goes here.</p>
+                    <div class="button-group">
+                            <a asp-action="Details" asp-route-id="@product.ProductID" class="btn custom-blue-btn">Show Details</a>
+                            <form class="btn custom-yellow-btn" asp-controller="Cart" asp-action="AddToCart" method="post">
+                                <input type="hidden" value="@product.ProductID" name="ProductId" />
+                                <button  type="submit" style="all:unset;">Add to Cart</button>
+                             </form>
+                            @* <a asp-controller="Review" asp-action="AddReview" class="btn custom-blue-btn">Add Review</a> *@
+                    </div>
+                </div>
+            </div>
+        </div>
+        }
+        
+    </div>
+</div>
+

@@ -1,8 +1,151 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    Layout = "_Layout";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<!-- Our Welcome Section -->
+<div id="blog-carousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="@Url.Content("~/img/1.jpg")" class="d-block w-100" alt="Image">
+            <div class="carousel-caption d-flex flex-column justify-content-center align-items-center">
+                <h1 class="display-3 fw-bold text-uppercase">Featured Products</h1>
+                <h2 class="display-5 fw-semibold">Top Deals on Electronics</h2>
+                <p class="lead">Shop Now and Save Big</p>
+                <span class="fs-5">Explore Categories: Laptops, Mobiles, Cameras</span>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="@Url.Content("~/img/2.jpg")" class="d-block w-100" alt="Image">
+            <div class="carousel-caption d-flex flex-column justify-content-center align-items-center">
+                <h1 class="display-3 fw-bold">Exclusive Laptops</h1>
+                <h2 class="display-5">Powerful Machines for Work & Play</h2>
+                <p class="lead">Get the Best Deals Now</p>
+                <span class="fs-5">Brands: Apple, Dell, HP, Lenovo</span>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="@Url.Content("~/img/3.jpg")" class="d-block w-100" alt="Image">
+            <div class="carousel-caption d-flex flex-column justify-content-center align-items-center">
+                <h1 class="display-3 fw-bold">Smartphones & Accessories</h1>
+                <h2 class="display-5">Upgrade Your Mobile Experience</h2>
+                <p class="lead">Exclusive Discounts Available</p>
+                <span class="fs-5">Brands: iPhone, Samsung, OnePlus, Xiaomi</span>
+            </div>
+        </div>
+    </div>
+    <a class="carousel-control-prev" href="#blog-carousel" role="button" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#blog-carousel" role="button" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </a>
 </div>
+
+<!-- Our Products Section -->
+<section id="our-products" class="py-5">
+    <div class="container text-center">
+        <h2 class="section-title">Our Products</h2>
+        <p class="section-subtitle">Discover our best-selling products.</p>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="product-card">
+                    <div class="image-container">
+                        <img src="@Url.Content("~/img/6.jpg")" class="img-fluid" alt="Laptop">
+                    </div>
+                    <h3>Gaming Laptop</h3>
+                    <p>Powerful specs for gaming and work.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="product-card">
+                    <div class="image-container">
+                        <img src="@Url.Content("~/img/5.jpg")" class="img-fluid" alt="Smartphone">
+                    </div>
+                    <h3>Flagship Smartphone</h3>
+                    <p>Cutting-edge performance and camera.</p>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="product-card">
+                    <div class="image-container">
+                        <img src="@Url.Content("~/img/7.jpg")" class="img-fluid" alt="Camera">
+                    </div>
+                    <h3>Professional Camera</h3>
+                    <p>Capture high-quality moments.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="product-card">
+                    <div class="image-container">
+                        <img src="@Url.Content("~/img/headphones.jpg")" class="img-fluid" alt="Headphones">
+                    </div>
+                    <h3>Wireless Headphones</h3>
+                    <p>High-quality sound with noise cancellation.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="product-card">
+                    <div class="image-container">
+                        <img src="@Url.Content("~/img/smartwatch.jpg")" class="img-fluid" alt="Smartwatch">
+                    </div>
+                    <h3>Smartwatch</h3>
+                    <p>Stay connected and track your health.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="product-card">
+                    <div class="image-container">
+                        <img src="@Url.Content("~/img/tablet.jpg")" class="img-fluid" alt="Tablet">
+                    </div>
+                    <h3>Tablet Pro</h3>
+                    <p>Perfect for work and entertainment.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-4">
+            <a href="/products" class="btn btn-primary btn-lg">See More</a>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- About Us Section -->
+<section id="about-us" class="py-5 ">
+    <div class="container text-center">
+        <h2 class="section-title">About Us</h2>
+        <p class="section-subtitle">Learn more about our mission and values.</p>
+        <div class="row">
+            <div class="col-md-6">
+                <img src="@Url.Content("~/img/team.jpg")" class="img-fluid rounded" alt="About Us">
+            </div>
+            <div class="col-md-6 text-start">
+                <p>We are committed to providing top-quality electronics at unbeatable prices. Our mission is to offer the latest technology with exceptional customer service. Whether you're looking for a new laptop, smartphone, or camera, we have something for everyone.</p>
+                <p>With years of experience in the industry, we ensure that our products are reliable, affordable, and meet the highest standards.</p>
+               
+            </div>
+        </div>
+    </div>
+</section> 
+
+
+
+
+ 

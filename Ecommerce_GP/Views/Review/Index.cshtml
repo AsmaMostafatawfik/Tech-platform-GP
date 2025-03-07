@@ -1,0 +1,41 @@
+@using GP.Data.Entities;
+@model List<Review>
+
+<!-- Background Image Section -->
+<div class="bg-container">
+    <img src="/img/R.jpg" alt="Review Banner" class="bg-image">
+    <div class="overlay-content">
+        <h1 class="display-4 mb-3 mt-0 mt-lg-5 text-white text-uppercase">Product Reviews</h1>
+        <div class="d-inline-flex mb-lg-5">
+            <p class="m-0 text-white"><a class="text-white" href="Index">Home</a></p>
+            <p class="m-0 text-white px-2">/</p>
+            <p class="m-0 text-white">Reviews</p>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="review-container">
+    <h2 class="text-center fw-bold mb-4 text-primary">Customer Reviews</h2>
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+         @foreach(var item in Model){
+
+        <div class="col">
+            <div class="card review-card">
+                <div class="card-body">
+                    <div class="user-info">
+                        <img src="~/img/@item.User?.Image" alt="User Avatar" class="avatar">
+                        <h5 class="card-title">@item.User.UserName</h5>
+                    </div>
+                    <p class="product-name">@item.Product.Name</p>
+                    <p class="rating">⭐ @item.Rating</p>
+                    <p class="card-text">@item.Comment</p>
+                    <p class="date">🕒 @item.CreateDate</p>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+</div>

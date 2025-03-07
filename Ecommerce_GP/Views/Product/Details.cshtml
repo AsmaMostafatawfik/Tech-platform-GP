@@ -1,0 +1,62 @@
+﻿@model GP.Data.Entities.Product
+@{
+    var product = Model;
+}
+
+
+<!-- Background Image Section -->
+<div class="bg-container">
+    <img src="/img/Details.jpg" alt="Product Banner" class="bg-image">
+    <div class="overlay-content">
+        <h1 class="display-4 mb-3 mt-0 mt-lg-5 text-white text-uppercase">Product Details</h1>
+        <div class="d-inline-flex mb-lg-5">
+            <p class="m-0 text-white"><a class="text-white" href="Index">Home</a></p>
+            <p class="m-0 text-white px-2">/</p>
+            <p class="m-0 text-white">Product</p>
+            <p class="m-0 text-white px-2">/</p>
+            <p class="m-0 text-white">Product Details</p>
+        </div>
+    </div>
+</div>
+
+<!-- Product Details Section -->
+<div class="product-box">
+    <!-- Product Image -->
+    <div class="product-image">
+        @if (product.Image != null)
+        {
+            var base64 = Convert.ToBase64String(product.Image);
+            var imgSrc = $"data:image/png;base64,{base64}";
+            <img src="@imgSrc" alt="@product.Name">
+        }
+    </div>
+
+    <!-- Product Info -->
+    <div class="product-info">
+        <h1 class="product-title">@Html.DisplayFor(modelItem => product.Name)</h1>
+        <p class="product-category">Category: @Html.DisplayFor(modelItem => product.Category)</p>
+        <span class="product-price">@Html.DisplayFor(modelItem => product.Price) EGP</span>
+
+        <!-- Action Buttons -->
+        @* <div class="product-actions">
+            <button type="submit" class="buy-btn">Add to Cart</button>
+            <button class="review-btn">Show Reviews</button> <!-- Reviews Button -->
+        </div> *@
+        <div class="button-group">
+            <a asp-controller="Review" asp-action="Index" asp-route-productId="@product.ProductID"
+                class="btn custom-blue-btn">
+                Show Reviews
+            </a>
+            <a href="#" class="btn custom-yellow-btn">Add to Cart</a>
+            @* <a asp-controller="Review" asp-action="AddReview" class="btn custom-blue-btn">Add Review</a> *@
+        </div>
+
+        <!-- Product Description -->
+        <div class="product-description">
+            <h3>Description</h3>
+            <p><b>@Html.DisplayFor(modelItem => product.Description)</p>
+            <p><b>Stock:</b> @Html.DisplayFor(modelItem => product.StockQuantity)</p>
+            <p><b>Brand:</b>@Html.DisplayFor(modelItem => product.Brand)</p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,46 @@
+﻿@using GP.Data.ViewModels;
+@model LoginViewModel;
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+}
+
+<div class="account-container">
+    <div class="acount-box">
+        <h2 class="text-center mb-5">Login</h2>
+        <form asp-action="Login" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger "></div>
+            <div class="mb-4 text_area">
+                
+                <input asp-for="Email" class="form-control text_area " type="email" placeholder="Email" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="mb-3 text_area">
+                
+                <input asp-for="Password" class="form-control text_area" type="password" placeholder="password" />
+                <span asp-validation-for="Password" class="text-danger" ></span>
+            </div>
+
+            <div class="float-end">
+                <a asp-controller="Account" asp-action="VerifyEmail" class="text-decoration-none">
+                    Forgot password?
+                </a>
+            </div>
+             
+            <div class="form-check  text-lg-start text-content">
+                <label class="col-form-label">
+                    <input asp-for="RememberMe" class="form-check-input" />
+                    @Html.DisplayNameFor(a=>a.RememberMe)
+                </label>
+            </div>
+        
+        <input type="submit" value="Login" class="Btn" />
+        <p class="text-center mt-2 .text-content">Do not hava an account? <a asp-controller="Account" asp-action="Register" class="text-decoration-none">Register</a></p>
+        <div class="text-center">
+            <a asp-controller="Home" asp-action="Index" class="text-decoration-none mt-3 .text-content">Back</a>
+        </div>
+        </form>
+
+    </div>
+</div>
