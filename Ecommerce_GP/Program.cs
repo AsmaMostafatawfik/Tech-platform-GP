@@ -2,6 +2,8 @@ using GP.Business.Interfaces;
 using GP.Business.Services;
 using GP.Data.Data;
 using GP.Data.Entities;
+using GP.Data.Interface;
+using GP.Data.Repository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,7 +19,10 @@ namespace Ecommerce_GP
 
             // Register Services
             builder.Services.AddScoped<IAuthService, AuthService>();
-            builder.Services.AddScoped<ReviewService>();
+            builder.Services.AddScoped<IProductService, ProductService>();
+            builder.Services.AddScoped<ICartService, CartService>();
+            builder.Services.AddScoped<IProductRepository, ProductRepository>();
+            //builder.Services.AddScoped<ReviewService>();
 
 
 
@@ -26,9 +31,9 @@ namespace Ecommerce_GP
 
             // Database Configuration
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseMySql(
+                options.UseSqlServer(
                     builder.Configuration.GetConnectionString("DefaultConnection"),
-                    ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))
+                    sqlOptions => sqlOptions.EnableRetryOnFailure()
                 )
             );
 
