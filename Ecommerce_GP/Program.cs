@@ -3,6 +3,7 @@ using GP.Business.Services;
 using GP.Data.Data;
 using GP.Data.Entities;
 using GP.Data.Interface;
+using GP.Data.Repositories;
 using GP.Data.Repository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -22,7 +23,17 @@ namespace Ecommerce_GP
             builder.Services.AddScoped<IProductService, ProductService>();
             builder.Services.AddScoped<ICartService, CartService>();
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
-            //builder.Services.AddScoped<ReviewService>();
+            builder.Services.AddScoped<IAdminService, AdminService>();
+            builder.Services.AddScoped<ReviewService>();
+
+
+            //Register Repositories
+            builder.Services.AddScoped(serviceType: typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            builder.Services.AddScoped<IProductRepository, ProductRepository>();
+            builder.Services.AddScoped<IUserRepository, UserRpository>();
+            builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+            builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
+            builder.Services.AddScoped<ICartRepository, CartRepository>();
 
 
 

@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -9,52 +10,127 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/E_commerce_platform.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
+
+
+
 </head>
 <body>
 
+   
+
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark fixed-top"
-             style="background: rgba(0, 0, 0, 0.1); backdrop-filter: blur(2px); position: absolute; width: 100%;">
-            <div class="container">
-                <a class="navbar-brand d-flex align-items-center" asp-area="" asp-controller="Home" asp-action="Index">
-                    <img src="~/img/logo2.png" alt="E-Commerce Logo" height="40" class="me-2">
-                    <span class="fw-bold text-white">Tech</span>
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                    <ul class="navbar-nav align-items-center">
-                        <li class="nav-item">
-                            <a class="nav-link text-white active" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Product" asp-action="Index">Shop</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Review" asp-action="Index">Review</a>
-                        </li>
-                        <partial name="_LoginPartial" />
-                        <li class="nav-item ms-3">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Cart" asp-action="Index">
-                                <i class="fas fa-shopping-cart"></i>
-                            </a>
-                        </li>
-                        <li class="nav-item ms-2">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Account" asp-action="Profile">
-                                <i class="fas fa-user"></i>
-                            </a>
-                        </li>
-                        
-                    </ul>
-                </div>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: black;">
+        <div class="container d-flex justify-content-between align-items-center">
+
+            <!-- Left: Logo -->
+            <a class="navbar-brand d-flex align-items-center logo" asp-area="" asp-controller="Home" asp-action="Index">
+                <img src="~/img/logo2.png" alt="E-Commerce Logo" height="40" class="me-2">
+                <span class="fw-bold text-white">Tech</span>
+            </a>
+
+            <!-- Center: Navigation Links with Spacing -->
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                <ul class="navbar-nav gap-3">
+                    <!-- Added Bootstrap gap-3 for spacing -->
+                    <!-- Home -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link text-white dropdown-toggle" href="#" id="homeDropdown" role="button" data-bs-toggle="dropdown">
+                            Home
+                        </a>
+                        <ul class="dropdown-menu bg-dark">
+                            <li><a class="dropdown-item text-white" asp-controller="Home" asp-action="Index">Main Home</a></li>
+                            <li><a class="dropdown-item text-white" asp-controller="Home" asp-action="About">About Us</a></li>
+                            <li><a class="dropdown-item text-white" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Product -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link text-white dropdown-toggle" href="#" id="productDropdown" role="button" data-bs-toggle="dropdown">
+                            Product
+                        </a>
+                        <ul class="dropdown-menu bg-dark">
+                            <li><a class="dropdown-item text-white" asp-controller="Product" asp-action="NewArrivals">New Arrivals</a></li>
+                            <li><a class="dropdown-item text-white" asp-controller="Product" asp-action="BestSellers">Best Sellers</a></li>
+                            <li><a class="dropdown-item text-white" asp-controller="Product" asp-action="Discounts">Discounts</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Shop -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link text-white dropdown-toggle" href="#" id="shopDropdown" role="button" data-bs-toggle="dropdown">
+                            Shop
+                        </a>
+                        <ul class="dropdown-menu bg-dark">
+                            <li><a class="dropdown-item text-white" asp-controller="Product" asp-action="Index">All Products</a></li>
+                            <li><a class="dropdown-item text-white" asp-controller="Product" asp-action="Categories">Categories</a></li>
+                            <li><a class="dropdown-item text-white" asp-controller="Cart" asp-action="Index">View Cart</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Pages -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link text-white dropdown-toggle" href="#" id="pagesDropdown" role="button" data-bs-toggle="dropdown">
+                            Pages
+                        </a>
+                        <ul class="dropdown-menu bg-dark">
+                            <li><a class="dropdown-item text-white" asp-controller="Home" asp-action="FAQ">FAQ</a></li>
+                            <li><a class="dropdown-item text-white" asp-controller="Home" asp-action="Support">Support</a></li>
+                            <li><a class="dropdown-item text-white" asp-controller="Home" asp-action="Terms">Terms & Conditions</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Blogs -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link text-white dropdown-toggle" href="#" id="blogsDropdown" role="button" data-bs-toggle="dropdown">
+                            Blogs
+                        </a>
+                        <ul class="dropdown-menu bg-dark">
+                            <li><a class="dropdown-item text-white" asp-controller="Blog" asp-action="Index">All Blogs</a></li>
+                            <li><a class="dropdown-item text-white" asp-controller="Blog" asp-action="TechNews">Tech News</a></li>
+                            <li><a class="dropdown-item text-white" asp-controller="Blog" asp-action="Reviews">Product Reviews</a></li>
+                            <li><a class="dropdown-item text-white" asp-controller="Blog" asp-action="Guides">Buying Guides</a></li>
+                        </ul>
+                    </li>
+
+                </ul>
             </div>
-        </nav>
+
+            <!-- Right: Icons (Minimalist) -->
+            <div class="navbar-icons d-flex align-items-center gap-4">
+                <!-- Search Icon -->
+                <a class="nav-link text-white" asp-area="" asp-controller="Search" asp-action="Index">
+                    <i class="fas fa-magnifying-glass fa-lg"></i>
+                </a>
+
+                <!-- User Icon -->
+                <a class="nav-link text-white" asp-area="" asp-controller="Account" asp-action="Login">
+                    <i class="fas fa-user fa-lg"></i>
+                </a>
+
+                <!-- Wishlist Icon with Badge -->
+                <a class="nav-link text-white position-relative" asp-area="" asp-controller="Wishlist" asp-action="Index">
+                    <i class="far fa-heart fa-lg"></i>  <!-- Simple heart icon -->
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
+                        0
+                    </span>
+                </a>
+
+                <!-- Cart Icon with Badge -->
+                <a class="nav-link text-white position-relative" asp-area="" asp-controller="Cart" asp-action="Index">
+                    <i class="fas fa-bag-shopping fa-lg"></i>  <!-- Simple bag icon -->
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">
+                        2
+                    </span>
+                </a>
+            </div>
+        </div>
+    </nav>
     </header>
+
+
+
 
 
 
@@ -68,63 +144,78 @@
 
 
 
-
-
-<footer class="footer bg-dark text-white py-5">
-    <div class="container">
-        <div class="row text-center text-md-start">
+    <footer class="footer text-white py-5" style="background-color:#222;">
+        <div class="container">  
+          <div class="row text-center text-md-start">  
             
-            <!-- Company Information -->
-            <div class="col-md-3">
-                <h5 class="text-uppercase mb-3">Tech Platform</h5>
-                <p>Your trusted e-commerce store for high-quality electronics, including smartphones, laptops, and accessories.</p>
-            </div>
+              <!-- Company Information -->  
+              <div class="col-md-3" >  
+                  <h5 class="text-uppercase mb-3">Tech Platform</h5>  
+                  <p>Your trusted e-commerce store for high-quality electronics, including smartphones, laptops, and accessories.</p>  
+             </div>  
 
-            <!-- Quick Links -->
-            <div class="col-md-3">
-                <h5 class="text-uppercase mb-3">Quick Links</h5>
-                <ul class="list-unstyled">
-                    <li><a href="#" class="text-white">Home</a></li>
-                    <li><a href="#" class="text-white">Shop</a></li>
-                    <li><a href="#" class="text-white">About Us</a></li>
-                    <li><a href="#" class="text-white">Contact</a></li>
-                </ul>
-            </div>
+              <!-- Quick Links -->  
+              <div class="col-md-3">  
+                  <h5 class="text-uppercase mb-3">Quick Links</h5>  
+                  <ul class="list-unstyled">
+                        <li><a href="#" class="text-white" style="text-decoration: none;">Home</a></li>
+                        <li><a href="#" class="text-white" style="text-decoration: none;">Shop</a></li>
+                        <li><a href="#" class="text-white" style="text-decoration: none;">About Us</a></li>
+                        <li><a href="#" class="text-white" style="text-decoration: none;">Contact</a></li>
+                    </ul>  
+              </div>  
 
-            <!-- Support & Policies -->
-            <div class="col-md-3">
-                <h5 class="text-uppercase mb-3">Support</h5>
-                <ul class="list-unstyled">
-                    <li><a href="#" class="text-white">FAQ</a></li>
-                    <li><a href="#" class="text-white">Shipping & Returns</a></li>
-                    <li><a href="#" class="text-white">Privacy Policy</a></li>
-                    <li><a href="#" class="text-white">Terms & Conditions</a></li>
-                </ul>
-            </div>
+              <!-- Support & Policies -->  
+              <div class="col-md-3">  
+                  <h5 class="text-uppercase mb-3">Support</h5>  
+                  <ul class="list-unstyled">
+                        <li><a href="#" class="text-white" style="text-decoration: none;">FAQ</a></li>
+                        <li><a href="#" class="text-white" style="text-decoration: none;">Shipping & Returns</a></li>
+                        <li><a href="#" class="text-white"style="text-decoration: none;">Privacy Policy</a></li>
+                        <li><a href="#" class="text-white" style="text-decoration: none;">Terms & Conditions</a></li>
+                    </ul>  
+              </div>  
 
-            <!-- Contact & Social Media -->
-            <div class="col-md-3">
-                <h5 class="text-uppercase mb-3">Contact Us</h5>
-                <p>Email: support@techplatform.com</p>
-                <p>Phone: +1 (800) 123-4567</p>
-                <p>Address: 123 Tech Street, New York, USA</p>
+              <!-- Contact & Social Media -->  
+              <div class="col-md-3">  
+                  <h5 class="text-uppercase mb-3">Contact Us</h5>  
+                  <p>Email: support@techplatform.com</p>  
+                 <p>Phone: +1 (800) 123-4567</p>  
+                 <p>Address: 123 Tech Street, New York, USA</p>  
                 
-                <h5 class="text-uppercase mt-3">Follow Us</h5>
-                <div class="d-flex">
-                    <a href="#" class="text-white me-3"><i class="fab fa-facebook fa-lg"></i></a>
-                    <a href="#" class="text-white me-3"><i class="fab fa-twitter fa-lg"></i></a>
-                    <a href="#" class="text-white me-3"><i class="fab fa-instagram fa-lg"></i></a>
-                    <a href="#" class="text-white me-3"><i class="fab fa-linkedin fa-lg"></i></a>
-                </div>
-            </div>
-        </div>
+                  <h5 class="text-uppercase mt-3">Follow Us</h5>  
+                  <div class="d-flex">  
+                      <a href="#" class="text-white me-3"><i class="fab fa-facebook fa-lg"></i></a>  
+                      <a href="#" class="text-white me-3"><i class="fab fa-twitter fa-lg"></i></a>  
+                      <a href="#" class="text-white me-3"><i class="fab fa-instagram fa-lg"></i></a>  
+                      <a href="#" class="text-white me-3"><i class="fab fa-linkedin fa-lg"></i></a>  
+                  </div>  
+              </div>  
+          </div>  
+          <!-- Copyright Section -->  
+          <div class="text-center mt-4">  
+            <p class="mb-0">&copy; 2025 Tech Platform | All Rights Reserved.</p>  
+         </div>  
+     </div>  
+  </footer> 
 
-        <!-- Copyright Section -->
-        <div class="text-center mt-4">
-            <p class="mb-0">&copy; 2025 Tech Platform | All Rights Reserved.</p>
-        </div>
-    </div>
-</footer>
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Ecommerce_GP.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    
     public class ProductController : Controller
     {
         private readonly IProductService _productService;
@@ -23,13 +23,14 @@ namespace Ecommerce_GP.Controllers
             var products = await _productService.GetAllProductsAsync();
             return View(products);
         }
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
         }
-        [Authorize(Roles ="Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create(Product product, IFormFile file)
         {
             if (file != null && file.Length > 0)

@@ -1,46 +1,87 @@
-﻿@using GP.Data.ViewModels;
+﻿
+@using GP.Data.ViewModels;
 @model LoginViewModel;
-
 @{
-    ViewData["Title"] = "Login";
-    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+    ViewData["Title"] = "Account";
 }
 
-<div class="account-container">
-    <div class="acount-box">
-        <h2 class="text-center mb-5">Login</h2>
-        <form asp-action="Login" method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger "></div>
-            <div class="mb-4 text_area">
-                
-                <input asp-for="Email" class="form-control text_area " type="email" placeholder="Email" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="mb-3 text_area">
-                
-                <input asp-for="Password" class="form-control text_area" type="password" placeholder="password" />
-                <span asp-validation-for="Password" class="text-danger" ></span>
-            </div>
-
-            <div class="float-end">
-                <a asp-controller="Account" asp-action="VerifyEmail" class="text-decoration-none">
-                    Forgot password?
-                </a>
-            </div>
-             
-            <div class="form-check  text-lg-start text-content">
-                <label class="col-form-label">
-                    <input asp-for="RememberMe" class="form-check-input" />
-                    @Html.DisplayNameFor(a=>a.RememberMe)
-                </label>
-            </div>
-        
-        <input type="submit" value="Login" class="Btn" />
-        <p class="text-center mt-2 .text-content">Do not hava an account? <a asp-controller="Account" asp-action="Register" class="text-decoration-none">Register</a></p>
-        <div class="text-center">
-            <a asp-controller="Home" asp-action="Index" class="text-decoration-none mt-3 .text-content">Back</a>
+<!-- Background Image Section -->
+<div class="bg-container">
+    <img src="~/img/login.jpg" alt="Account Banner" class="bg-image">
+    <div class="overlay-content">
+        <div class="breadcrumb">
+            <p><a href="@Url.Action("Index", "Home")">Home</a>  /  <span class="breadcrumb-active">Account</span></p>
         </div>
-        </form>
-
+        <h1 class="account-heading">Account</h1>
     </div>
 </div>
+
+<!-- Login Section -->
+<div class="container account-container">
+    <div class="row justify-content-center gx-6">
+
+        <!-- Login Form -->
+        <div class="col-md-5 p-4 login-box">
+            <h2 class="mb-4">I already have an account</h2>
+            <p class="text-muted" style="color: rgb(255 255 255 / 75%) !important">Hello again, please log in with your email address and password.</p>
+
+            <form asp-action="Login" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="mb-3">
+                    <label class="form-label">Email Address</label>
+                    <input asp-for="Email" class="form-control custom-input" type="email" placeholder="Email Address" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <input asp-for="Password" class="form-control custom-input" type="password" placeholder="Password" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="form-check">
+                        <input asp-for="RememberMe" class="form-check-input" />
+                        <label class="form-check-label">@Html.DisplayNameFor(a => a.RememberMe)</label>
+                    </div>
+                    <a asp-controller="Account" asp-action="VerifyEmail" class="text-decoration-none">Forgot Password?</a>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100 mt-3">Log in →</button>
+                <p class="text-center mt-3">SSL Secure</p>
+            </form>
+        </div>
+
+        <!-- Register Section -->
+        <div class="col-md-5 p-4 register-box">
+            <h2 class="mb-4">Not a member yet?</h2>
+            <p class="text-muted" style="color: rgb(255 255 255 / 75%) !important">Creating an account has many benefits: check out faster, keep track of orders, and more.</p>
+
+            <a asp-controller="Account" asp-action="Register" class="btn btn-primary w-100 mb-3">Create Account →</a>
+
+            <div class="features text-center">
+                <div class="d-flex justify-content-around">
+                    <div class="feature-item">
+                        <i class="fas fa-box"></i>
+                        <p>Track my orders</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-heart"></i>
+                        <p>Save favorites</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-user-edit"></i>
+                        <p>Manage data</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div> <!-- End of row -->
+    <!-- Move "Back to shop" under both login & register boxes -->
+    <div class="text-center mt-4">
+        <a asp-controller="Home" asp-action="Index" class="text-decoration-none">Back to shop</a>
+    </div>
+
+</div> <!-- End of container -->

@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace GP.Data.Repository
 {
-    public class ProductRepository : IProductRepository
+    public class ProductRepository : GenericRepository<Product>, IProductRepository
     {
         private readonly ApplicationDbContext _context;
 
-        public ProductRepository(ApplicationDbContext context)
+        public ProductRepository(ApplicationDbContext context):base(context)
         {
             _context = context;
         }
@@ -50,5 +50,8 @@ namespace GP.Data.Repository
                 await _context.SaveChangesAsync();
             }
         }
+        
+
+       
     }
 }

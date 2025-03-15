@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Ecommerce_GP.Controllers
 {
-    [Authorize]
+    [Authorize (Roles ="Customer")]
     public class CartController : Controller
     {
         private readonly ICartService _cartService;
