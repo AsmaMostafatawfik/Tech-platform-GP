@@ -1,11 +1,13 @@
 ﻿using GP.Business.Interfaces;
 using GP.Business.Services;
 using GP.Data.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace Ecommerce_GP.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ProductController : Controller
     {
         private readonly IProductService _productService;
@@ -21,12 +23,11 @@ namespace Ecommerce_GP.Controllers
             var products = await _productService.GetAllProductsAsync();
             return View(products);
         }
-
         public IActionResult Create()
         {
             return View();
         }
-
+        [Authorize(Roles ="Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Product product, IFormFile file)

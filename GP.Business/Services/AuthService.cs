@@ -12,11 +12,14 @@ namespace GP.Business.Services
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public AuthService(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
+
+        public AuthService(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _signInManager = signInManager;
             _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         public async Task<SignInResult> LoginAsync(LoginViewModel model)
@@ -24,7 +27,7 @@ namespace GP.Business.Services
             return await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
         }
 
-        public async Task<IdentityResult> RegisterAsync(RegisterViewModel model)
+        public async Task<IdentityResult> RegisterAsync(RegisterViewModel model,string role="Customer")
         {
             ApplicationUser user = new ApplicationUser
             {
@@ -32,7 +35,16 @@ namespace GP.Business.Services
                 Email = model.Email,
                 UserName = model.Email
             };
-            return await _userManager.CreateAsync(user, model.Password);
+            var result= await _userManager.CreateAsync(user, model.Password);
+            if (result.Succeeded)
+            {
+                if(!await _roleManager.RoleExistsAsync(role))
+                {
+                    await _roleManager.CreateAsync(new IdentityRole(role));
+                }
+                await _userManager.AddToRoleAsync(user, role);
+            }
+            return result;
         }
 
         public async Task<ApplicationUser> FindUserByEmailAsync(string email)

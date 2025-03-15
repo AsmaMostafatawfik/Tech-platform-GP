@@ -11,7 +11,7 @@ namespace Ecommerce_GP
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -39,8 +39,9 @@ namespace Ecommerce_GP
 
             // Add Identity Services
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders(); // Enables token generation for password reset, email confirmation, etc.
+      .AddEntityFrameworkStores<ApplicationDbContext>()
+      .AddDefaultTokenProviders(); // Enables token generation for password reset, email confirmation, etc.
+
 
             // Configure Identity Cookie Settings
             builder.Services.ConfigureApplicationCookie(options =>
@@ -57,6 +58,8 @@ namespace Ecommerce_GP
 
             var app = builder.Build();
 
+           
+
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
@@ -68,6 +71,11 @@ namespace Ecommerce_GP
             app.UseStaticFiles(); // Ensure static files are served
 
             app.UseRouting();
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                await RoleBasedService.seedRolesAdminsAndUser(services);
+            }
 
             app.UseAuthentication(); // Add Authentication Middleware
             app.UseAuthorization();  // Add Authorization Middleware

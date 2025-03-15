@@ -30,9 +30,12 @@
                 }
                 <span class="cart-total">@(item.Product.Price*item.Quantity)</span>
             </div>
-            <button class="delete-btn" onclick="removeItem(@item.CartID})">
-                <i class="fas fa-trash"></i>
-        </button>
+                <form asp-controller="Cart" asp-action="RemoveFromCart" method="post">
+                    <input type="hidden" name="productId" value="@item.ProductID" />
+                    <button type="submit" class="delete-btn">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </form>
             }
             else
             {
