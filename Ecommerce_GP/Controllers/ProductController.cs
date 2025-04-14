@@ -3,6 +3,7 @@ using GP.Business.Services;
 using GP.Data.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Stripe.Checkout;
 using System.Threading.Tasks;
 
 namespace Ecommerce_GP.Controllers
@@ -11,7 +12,6 @@ namespace Ecommerce_GP.Controllers
     public class ProductController : Controller
     {
         private readonly IProductService _productService;
-
         public ProductController(IProductService productService)
         {
             _productService = productService;
@@ -111,7 +111,6 @@ namespace Ecommerce_GP.Controllers
             ViewBag.Model = products.Where(p => p.Category == Category.FlagshipSmartphone).ToList();
             return View();
         }
-
 
 
 

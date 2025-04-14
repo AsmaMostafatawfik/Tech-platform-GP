@@ -8,7 +8,20 @@ namespace GP.Business.Interfaces
 {
     public interface IPaymentService
     {
-        Task<string> ProcessPayment(string cardNumber, string expMonth, string expYear, string cvc, decimal amount, string currency);
-
+        Task<PaymentResult> ProcessPayment(
+             string cardNumber,
+             string expMonth,
+             string expYear,
+             string cvc,
+             decimal amount,
+             string currency);
     }
+
+    public class PaymentResult
+    {
+        public string Status { get; set; }
+        public string ChargeId { get; set; }
+        public string FailureMessage { get; set; }
+    }
+
 }

@@ -1,4 +1,7 @@
-﻿using Stripe;
+﻿using GP.Business.Interfaces;
+using Microsoft.Extensions.Configuration;
+using Stripe;
+using Stripe.Checkout;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,45 +10,67 @@ using System.Threading.Tasks;
 
 namespace GP.Business.Services
 {
-    public class PaymentService
+    public class PaymentService:IPaymentService
     {
         private readonly string _secretKey;
-        public PaymentService(string secretKey)
+
+        public PaymentService(IConfiguration configuration)
         {
-            _secretKey = secretKey;
-            StripeConfiguration.ApiKey = secretKey;
+            _secretKey = configuration["Stripe:SecretKey"];
+            StripeConfiguration.ApiKey = _secretKey;
         }
-        public async Task<string> ProcessPayment(string cardNumber,string expMonth, string expYear,string cvc,decimal amount,string currency)
+
+        public async Task<PaymentResult> ProcessPayment(
+            string cardNumber,
+            string expMonth,
+            string expYear,
+            string cvc,
+            decimal amount,
+            string currency)
         {
             try
             {
-                var TokenService = new TokenService();
-                var TokenOption = new TokenCreateOptions
+                // Create payment token
+                var tokenOptions = new TokenCreateOptions
                 {
                     Card = new TokenCardOptions
                     {
                         Number = cardNumber,
-                        Cvc = cvc,
-                        Currency = currency,
-                        ExpMonth=expMonth,
-                        ExpYear=expYear
+                        ExpMonth = expMonth,
+                        ExpYear = expYear,
+                        Cvc = cvc
                     }
                 };
-                var token = await TokenService.CreateAsync(TokenOption);
-                var chargeService = new ChargeService();
-                var chargeOption = new ChargeCreateOptions
+
+                var tokenService = new TokenService();
+                var token = await tokenService.CreateAsync(tokenOptions);
+
+                // Create charge
+                var chargeOptions = new ChargeCreateOptions
                 {
                     Amount = (long)(amount * 100),
                     Currency = currency,
                     Source = token.Id,
-                    Description="MVC Stripe Payment"
+                    Description = "Ecommerce payment"
                 };
-                var charge = await chargeService.CreateAsync(chargeOption);
-                return charge.Status;
+
+                var chargeService = new ChargeService();
+                var charge = await chargeService.CreateAsync(chargeOptions);
+
+                return new PaymentResult
+                {
+                    Status = charge.Status,
+                    ChargeId = charge.Id,
+                    FailureMessage = charge.FailureMessage
+                };
             }
-            catch(StripeException ex)
+            catch (StripeException ex)
             {
-                return ex.Message;
+                return new PaymentResult
+                {
+                    Status = "failed",
+                    FailureMessage = ex.Message
+                };
             }
         }
     }

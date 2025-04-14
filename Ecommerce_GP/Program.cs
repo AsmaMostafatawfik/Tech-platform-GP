@@ -7,6 +7,11 @@ using GP.Data.Repositories;
 using GP.Data.Repository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Stripe;
+using Stripe.BillingPortal;
+using Stripe.Terminal;
+using System.Diagnostics;
+using Configuration = Stripe.Terminal.Configuration;
 
 namespace Ecommerce_GP
 {
@@ -20,13 +25,15 @@ namespace Ecommerce_GP
 
             // Register Services
             builder.Services.AddScoped<IAuthService, AuthService>();
-            builder.Services.AddScoped<IProductService, ProductService>();
+            builder.Services.AddScoped<IProductService, GP.Business.Services.ProductService>();
             builder.Services.AddScoped<ICartService, CartService>();
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
             builder.Services.AddScoped<IAdminService, AdminService>();
-            builder.Services.AddScoped<ReviewService>();
+            builder.Services.AddScoped<GP.Business.Services.ReviewService>();
 
+            StripeConfiguration.ApiKey = builder.Configuration["Stripe:SecretKey"];
 
+            // Register Services
             //Register Repositories
             builder.Services.AddScoped(serviceType: typeof(IGenericRepository<>), typeof(GenericRepository<>));
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
@@ -34,9 +41,9 @@ namespace Ecommerce_GP
             builder.Services.AddScoped<IOrderRepository, OrderRepository>();
             builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
             builder.Services.AddScoped<ICartRepository, CartRepository>();
+            builder.Services.AddScoped<IPaymentService, PaymentService>();
 
-
-
+ 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
@@ -82,6 +89,9 @@ namespace Ecommerce_GP
             app.UseStaticFiles(); // Ensure static files are served
 
             app.UseRouting();
+
+            StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe:SecretKey").Get<string>();
+
             using (var scope = app.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
