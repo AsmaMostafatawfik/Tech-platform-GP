@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 ﻿
 using GP.Business.Interfaces;
+=======
+﻿using GP.Business.Interfaces;
+>>>>>>> 88f5b6972038202f1d1b220064a20758c3447c07
 using GP.Business.Services;
 using GP.Data.Entities;
 using Microsoft.AspNetCore.Authorization;
@@ -9,7 +13,11 @@ using System.Threading.Tasks;
 
 namespace Ecommerce_GP.Controllers
 {
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 88f5b6972038202f1d1b220064a20758c3447c07
     public class ProductController : Controller
     {
         private readonly IProductService _productService;

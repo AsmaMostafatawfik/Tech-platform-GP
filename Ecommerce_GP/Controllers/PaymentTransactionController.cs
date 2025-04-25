@@ -1,6 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+<<<<<<< HEAD
 using GP.Business.Services;
+=======
+using GP.Business.Services;  
+>>>>>>> 88f5b6972038202f1d1b220064a20758c3447c07
 using Microsoft.Extensions.Configuration;
 using System.Threading.Tasks;
 using GP.Business.Interfaces;

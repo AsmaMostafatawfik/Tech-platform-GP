@@ -27,7 +27,11 @@ namespace GP.Business.Services
             return await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
         }
 
+<<<<<<< HEAD
         public async Task<IdentityResult> RegisterAsync(RegisterViewModel model, string role = "Customer")
+=======
+        public async Task<IdentityResult> RegisterAsync(RegisterViewModel model,string role="Customer")
+>>>>>>> 88f5b6972038202f1d1b220064a20758c3447c07
         {
             ApplicationUser user = new ApplicationUser
             {
@@ -35,10 +39,17 @@ namespace GP.Business.Services
                 Email = model.Email,
                 UserName = model.Email
             };
+<<<<<<< HEAD
             var result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
                 if (!await _roleManager.RoleExistsAsync(role))
+=======
+            var result= await _userManager.CreateAsync(user, model.Password);
+            if (result.Succeeded)
+            {
+                if(!await _roleManager.RoleExistsAsync(role))
+>>>>>>> 88f5b6972038202f1d1b220064a20758c3447c07
                 {
                     await _roleManager.CreateAsync(new IdentityRole(role));
                 }

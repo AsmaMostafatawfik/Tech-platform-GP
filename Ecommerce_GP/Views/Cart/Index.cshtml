@@ -15,6 +15,7 @@
 <div class="cart-container">
     <h2 class="text-center mb-4"><i class="fas fa-shopping-cart"></i> Your Cart</h2>
 
+<<<<<<< HEAD
     @if (Model.Count == 0)
     {
         <p>Your cart is empty.</p>
@@ -23,6 +24,25 @@
     {
         <div id="cart-items">
             @foreach (var item in Model)
+=======
+            <img src="@path" alt="@item.Product.Name">
+            <div class="cart-info">
+                <h5>@item.Product.Name</h5>
+                <p>Quantity: @item.Quantity</p>
+                @{
+                    total += item.Product.Price * item.Quantity;
+                }
+                <span class="cart-total">@(item.Product.Price*item.Quantity)</span>
+            </div>
+                <form asp-controller="Cart" asp-action="RemoveFromCart" method="post">
+                    <input type="hidden" name="productId" value="@item.ProductID" />
+                    <button type="submit" class="delete-btn">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </form>
+            }
+            else
+>>>>>>> 88f5b6972038202f1d1b220064a20758c3447c07
             {
                 <div class="cart-card mb-3">
                     @if (item.Product != null && item.Product.Image != null)

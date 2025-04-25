@@ -1,0 +1,56 @@
+﻿@model GP.Data.Entities.UserProfile
+@{
+    ViewData["Title"] = "My Profile";
+}
+
+<form asp-action="Index" method="post" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="FullName"></label>
+        <input asp-for="FullName" class="form-control" />
+        <span asp-validation-for="FullName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PhoneNumber"></label>
+        <input asp-for="PhoneNumber" class="form-control" />
+        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Image">Upload New Profile Image</label>
+        <input asp-for="Image" type="file" accept="image/*" class="form-control" onchange="previewImage(event)" />
+    </div>
+
+    @if (Model.Image != null)
+    {
+        <div class="mb-3">
+            <p>Current Profile Image:</p>
+            <img src="data:image/png;base64,@Convert.ToBase64String(Model.Image)" style="max-height: 150px;" />
+        </div>
+    }
+
+    <div class="mb-3">
+        <img id="preview" style="max-height: 150px; display:none;" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update Profile</button>
+</form>
+
+@section Scripts {
+    <script>
+        function previewImage(event) {
+            var preview = document.getElementById('preview');
+            preview.src = URL.createObjectURL(event.target.files[0]);
+            preview.style.display = 'block';
+        }
+    </script>
+}
+

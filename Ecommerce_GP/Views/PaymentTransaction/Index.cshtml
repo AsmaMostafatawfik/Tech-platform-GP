@@ -35,7 +35,11 @@
                 <div class="card-body text-center">
                     <form asp-action="CreateCheckoutSession" asp-controller="PaymentTransaction" method="post">
                         @Html.AntiForgeryToken()
+<<<<<<< HEAD
                         <input type="hidden" name="amount" value="2000" />
+=======
+                        <input type="hidden" name="amount" value="2000" />  
+>>>>>>> 88f5b6972038202f1d1b220064a20758c3447c07
                         <button type="submit" class="btn btn-primary btn-lg mt-3">Pay $20</button>
                     </form>
                     <p class="mt-3 text-muted">You will be redirected to Stripe Checkout to complete your purchase.</p>
@@ -67,4 +71,8 @@
     .payment-card {
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     }
+<<<<<<< HEAD
 </style>
+=======
+</style>
+>>>>>>> 88f5b6972038202f1d1b220064a20758c3447c07

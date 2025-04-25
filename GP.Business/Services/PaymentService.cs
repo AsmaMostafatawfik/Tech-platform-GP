@@ -10,7 +10,11 @@ using System.Threading.Tasks;
 
 namespace GP.Business.Services
 {
+<<<<<<< HEAD
     public class PaymentService : IPaymentService
+=======
+    public class PaymentService:IPaymentService
+>>>>>>> 88f5b6972038202f1d1b220064a20758c3447c07
     {
         private readonly string _secretKey;
 
@@ -74,4 +78,8 @@ namespace GP.Business.Services
             }
         }
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 88f5b6972038202f1d1b220064a20758c3447c07

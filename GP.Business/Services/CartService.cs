@@ -19,7 +19,10 @@ namespace GP.Business.Services
             _db = db;
         }
 
+<<<<<<< HEAD
         // Get all cart items for the user
+=======
+>>>>>>> 88f5b6972038202f1d1b220064a20758c3447c07
         public async Task<List<ShoppingCart>> GetCartItemsAsync(string userId)
         {
             return await _db.ShoppingCarts
@@ -28,6 +31,7 @@ namespace GP.Business.Services
                             .ToListAsync();
         }
 
+<<<<<<< HEAD
         // Add an item to the cart
         public async Task AddToCartAsync(string userId, int productId)
         {
@@ -37,6 +41,14 @@ namespace GP.Business.Services
             if (existingItem != null)
             {
                 existingItem.Quantity += 1; // Increase quantity if the item already exists
+=======
+        public async Task AddToCartAsync(string userId, int productId)
+        {
+            var existingItem = await _db.ShoppingCarts.FirstOrDefaultAsync(c => c.ProductID == productId && c.UserID == userId);
+            if (existingItem != null)
+            {
+                existingItem.Quantity += 1;
+>>>>>>> 88f5b6972038202f1d1b220064a20758c3447c07
             }
             else
             {
@@ -46,6 +58,7 @@ namespace GP.Business.Services
                     ProductID = productId,
                     UserID = userId
                 };
+<<<<<<< HEAD
                 _db.ShoppingCarts.Add(newItem); // Add the new item to the cart
             }
 
@@ -58,19 +71,38 @@ namespace GP.Business.Services
             var existingItem = await _db.ShoppingCarts
                 .FirstOrDefaultAsync(c => c.ProductID == productId && c.UserID == userId);
 
+=======
+                _db.ShoppingCarts.Add(newItem);
+            }
+            await _db.SaveChangesAsync();
+        }
+
+        public async Task RemoveFromCartAsync(string userId, int productId)
+        {
+            var existingItem = await _db.ShoppingCarts.FirstOrDefaultAsync(c => c.ProductID == productId && c.UserID == userId);
+>>>>>>> 88f5b6972038202f1d1b220064a20758c3447c07
             if (existingItem != null)
             {
                 if (existingItem.Quantity > 1)
                 {
+<<<<<<< HEAD
                     existingItem.Quantity -= 1; // Decrease quantity if more than 1
                 }
                 else
                 {
                     _db.ShoppingCarts.Remove(existingItem); // Remove the item if quantity is 1
+=======
+                    existingItem.Quantity -= 1;
+                }
+                else
+                {
+                    _db.ShoppingCarts.Remove(existingItem);
+>>>>>>> 88f5b6972038202f1d1b220064a20758c3447c07
                 }
                 await _db.SaveChangesAsync();
             }
         }
+<<<<<<< HEAD
 
         // Increase quantity of item in the cart
         public async Task IncreaseQuantityAsync(string userId, int productId)
@@ -134,3 +166,7 @@ namespace GP.Business.Services
     }
 
 }
+=======
+    }
+}
+>>>>>>> 88f5b6972038202f1d1b220064a20758c3447c07

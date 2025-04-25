@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿using Microsoft.AspNetCore.Mvc;
+=======
+using Microsoft.AspNetCore.Mvc;
+>>>>>>> 88f5b6972038202f1d1b220064a20758c3447c07
 using GP.Business;
 using GP.Data;
 using GP.Business.Services;
@@ -18,7 +22,11 @@ namespace GP.Controllers
         public async Task<IActionResult> Users()
         {
             var users = await _adminService.GetAllUsersAsync();
+<<<<<<< HEAD
             return View(users);
+=======
+            return View(users); 
+>>>>>>> 88f5b6972038202f1d1b220064a20758c3447c07
         }
         public async Task<IActionResult> UserDetails(int id)
         {
@@ -32,9 +40,15 @@ namespace GP.Controllers
             return View();
         }
         [HttpPost]
+<<<<<<< HEAD
         public async Task<IActionResult> AddUser(ApplicationUser User)
         {
             if (ModelState.IsValid)
+=======
+        public async Task<IActionResult> AddUser(ApplicationUser User) 
+        {
+            if(ModelState.IsValid)
+>>>>>>> 88f5b6972038202f1d1b220064a20758c3447c07
             {
                 return View(User);
             }
@@ -148,4 +162,8 @@ namespace GP.Controllers
             return RedirectToAction(nameof(Reviews));
         }
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 88f5b6972038202f1d1b220064a20758c3447c07

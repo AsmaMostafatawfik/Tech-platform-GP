@@ -16,4 +16,8 @@ namespace GP.Data.Repositories
         Task SaveChangesAsync();
     }
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 88f5b6972038202f1d1b220064a20758c3447c07

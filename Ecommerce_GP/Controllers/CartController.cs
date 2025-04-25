@@ -6,7 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Ecommerce_GP.Controllers
 {
+<<<<<<< HEAD
     [Authorize(Roles = "Customer")]
+=======
+    [Authorize (Roles ="Customer")]
+>>>>>>> 88f5b6972038202f1d1b220064a20758c3447c07
     public class CartController : Controller
     {
         private readonly ICartService _cartService;
@@ -18,17 +22,26 @@ namespace Ecommerce_GP.Controllers
             _userManager = userManager;
         }
 
+<<<<<<< HEAD
         // Show Cart
+=======
+>>>>>>> 88f5b6972038202f1d1b220064a20758c3447c07
         public async Task<IActionResult> Index()
         {
             var userId = _userManager.GetUserId(User);
             var cartItems = await _cartService.GetCartItemsAsync(userId);
+<<<<<<< HEAD
             var totalAmount = await _cartService.GetTotalAmountAsync(userId); // Get total price for cart
             ViewBag.TotalAmount = totalAmount; // Pass total to the view
             return View(cartItems);
         }
 
         // Add to Cart
+=======
+            return View(cartItems);
+        }
+
+>>>>>>> 88f5b6972038202f1d1b220064a20758c3447c07
         [HttpPost]
         public async Task<IActionResult> AddToCart(int productId)
         {
@@ -37,13 +50,17 @@ namespace Ecommerce_GP.Controllers
             return RedirectToAction("Index");
         }
 
+<<<<<<< HEAD
         // Remove from Cart
+=======
+>>>>>>> 88f5b6972038202f1d1b220064a20758c3447c07
         [HttpPost]
         public async Task<IActionResult> RemoveFromCart(int productId)
         {
             var userId = _userManager.GetUserId(User);
             await _cartService.RemoveFromCartAsync(userId, productId);
             return RedirectToAction("Index");
+<<<<<<< HEAD
         }
 
         // Increase Quantity
@@ -71,6 +88,8 @@ namespace Ecommerce_GP.Controllers
             var userId = _userManager.GetUserId(User);
             await _cartService.ClearCartAsync(userId);
             return RedirectToAction("Index");
+=======
+>>>>>>> 88f5b6972038202f1d1b220064a20758c3447c07
         }
     }
 }

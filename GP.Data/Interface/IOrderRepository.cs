@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿//using System.Collections.Generic;
 //using System.Threading.Tasks;
 //using GP.Data.Entities;
@@ -30,3 +31,19 @@ namespace GP.Data.Interface
         Task ClearCartAsync(string userId);
     }
 }
+=======
+﻿using GP.Data.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace GP.Data.Repositories
+{
+    public interface IOrderRepository:IGenericRepository<Order>
+    {
+        IEnumerable<Order>GetOrdersByUserId(string userId);
+    }
+}
+>>>>>>> 88f5b6972038202f1d1b220064a20758c3447c07
