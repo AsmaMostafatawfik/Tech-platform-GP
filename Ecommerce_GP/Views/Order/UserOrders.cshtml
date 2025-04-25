@@ -1,0 +1,145 @@
+﻿@* @model List<GP.Data.DTOs.OrderResponse> *@
+
+
+   
+
+@* <div class="container py-5"> *@
+@*     <h2 class="mb-4 text-center">My Orders</h2> *@
+@*     @if (TempData["SuccessMessage"] != null) *@
+@*     { *@
+@*         <div class="alert alert-success alert-dismissible fade show" role="alert"> *@
+@*             @TempData["SuccessMessage"] *@
+@*             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> *@
+@*         </div> *@
+@*     } *@
+@*     @if (TempData["ErrorMessage"] != null) *@
+@*     { *@
+@*         <div class="alert alert-danger alert-dismissible fade show" role="alert"> *@
+@*             @TempData["ErrorMessage"] *@
+@*             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> *@
+@*         </div> *@
+@*     } *@
+
+@*     @if (Model.Any()) *@
+@*     { *@
+@*         <div class="table-responsive"> *@
+@*             <table class="table table-hover table-bordered"> *@
+@*                 <thead class="table-dark"> *@
+@*                     <tr> *@
+@*                         <th>Order ID</th> *@
+@*                         <th>Order Date</th> *@
+@*                         <th>Total Amount</th> *@
+@*                         <th>Status</th> *@
+@*                         <th>Actions</th> *@
+@*                     </tr> *@
+@*                 </thead> *@
+@*                 <tbody> *@
+@*                     @foreach (var order in Model) *@
+@*                     { *@
+@*                         <tr> *@
+@*                             <td>@order.OrderID</td> *@
+@*                             <td>@order.OrderDate.ToString("MMM dd, yyyy")</td> *@
+@*                             <td>$@order.TotalAmount</td> *@
+@*                             <td> *@
+@*                                 <span class="badge @(order.Status == "Pending" ? "bg-warning" : order.Status == "Confirmed" ? "bg-info" : order.Status == "Shipped" ? "bg-primary" : order.Status == "Delivered" ? "bg-success" : "bg-danger")"> *@
+@*                                     @order.Status *@
+@*                                 </span> *@
+@*                             </td> *@
+@*                             <td> *@
+@*                                 <a asp-action="Details" asp-route-orderId="@order.OrderID" class="btn btn-info btn-sm">View Details</a> *@
+@*                             </td> *@
+@*                         </tr> *@
+@*                     } *@
+@*                 </tbody> *@
+@*             </table> *@
+@*         </div> *@
+@*     } *@
+@*     else *@
+@*     { *@
+@*         <div class="alert alert-info text-center"> *@
+@*             No orders found. *@
+@*         </div> *@
+@*     } *@
+@* </div> *@
+
+
+
+
+
+
+@model List<GP.Data.DTOs.OrderResponse>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container py-5">
+    <h2 class="mb-4 text-center">My Orders</h2>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    @if (Model.Any())
+    {
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered align-middle">
+                <thead class="table-dark text-center">
+                    <tr>
+                        <th scope="col">Order ID</th>
+                        <th scope="col">Order Date</th>
+                        <th scope="col">Total Amount</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var order in Model)
+                    {
+                        <tr>
+                            <td>@order.OrderID</td>
+                            <td>@order.OrderDate.ToString("MMM dd, yyyy")</td>
+                            <td class="text-success fw-semibold">$@order.TotalAmount</td>
+                            <td class="text-center">
+                                <span class="badge
+                                    @(order.Status == "Pending" ? "bg-warning text-dark" :
+                                      order.Status == "Confirmed" ? "bg-info text-dark" :
+                                      order.Status == "Shipped" ? "bg-primary" :
+                                      order.Status == "Delivered" ? "bg-success" :
+                                      "bg-danger")">
+                                    @order.Status
+                                </span>
+                            </td>
+                            <td class="text-center">
+                                <a asp-action="Details" asp-route-orderId="@order.OrderID" class="btn btn-outline-info btn-sm">
+                                    View Details
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info text-center">
+            You have no orders yet.
+        </div>
+    }
+</div>
+
+
+

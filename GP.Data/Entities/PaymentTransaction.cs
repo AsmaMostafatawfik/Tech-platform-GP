@@ -21,5 +21,7 @@ namespace GP.Data.Entities
         public int OrderID { get; set; }
         [InverseProperty("PaymentTransaction")]
         public virtual Order? Order { get; set; }
+
+        public string? StripeSessionId { get; set; }
     }
 }

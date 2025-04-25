@@ -1,30 +1,33 @@
 ﻿body {
-    background: linear-gradient(135deg, #F0F2F0, #000C40);
+    background: linear-gradient(135deg, #F0F2F0, #FFAB5B);
     height: 100vh;
     width: 100%;
     text-align: center;
 }
-.account-container{
-/*   background-image: url(../images/background.jpg);*/
-    background-size:cover;
-    background-position:center;
-    background-repeat:no-repeat;
-    display:flex;
-    justify-content:center;
-    align-content:center;
-    min-height:100vh;
-    padding:2rem 0;
+
+.account-container {
+    /*   background-image: url(../images/background.jpg);*/
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    min-height: 100vh;
+    padding: 2rem 0;
 }
-.acount-box{
-    background-color:#fff;
-    padding:35px;
-    border-radius:10px;
+
+.acount-box {
+    background-color: #fff;
+    padding: 35px;
+    border-radius: 10px;
     box-shadow: 0 0 10px rgba(0,0,0,0.3);
-    max-width:500px;
-    width:100%;
-    opacity:0.9;
-    margin:auto;
+    max-width: 500px;
+    width: 100%;
+    opacity: 0.9;
+    margin: auto;
 }
+
 .text_area {
     align-content: center;
     border-radius: 22px;
@@ -34,23 +37,26 @@
     box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.2), 0 0 20px 0 rgba(0, 0, 0, 0.19);
     font-size: 1.3rem;
 }
-.text-content{
-    font-size:1.1rem;
+
+.text-content {
+    font-size: 1.1rem;
 }
+
 .Btn {
     margin-top: 28px;
     width: 165px;
     height: 60px;
     border-radius: 30px;
-    background: #253655;
+    background: #00879E;
     border: none;
     font-family: 'Montserrat';
     font-size: 20px;
     color: #FFFFFF;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.3), 0 6px 20px 0 rgba(0,0,0,0.3);
     cursor: pointer;
-    margin-bottom:20px
+    margin-bottom: 20px
 }
+
 .color {
     color: #253655;
 }

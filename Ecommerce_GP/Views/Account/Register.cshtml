@@ -3,41 +3,74 @@
 
 @{
     ViewData["Title"] = "Register";
-    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+    
 }
 
-<div class="account-container">
-    <div class="acount-box">
-        <h2 class="text-center mb-5">Register</h2>
-        <form asp-action="Register" method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger "></div>
 
-            <div class="mb-4 text_area">
-                <input asp-for="Name" class="form-control text_area " type="text" placeholder="Name" class="mb-3" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
 
-            <div class="mb-4 text_area">
-                <input asp-for="Email" class="form-control text_area " type="email" placeholder="Email" class="mb-3" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="mb-4 text_area">
-                <input asp-for="Password" class="form-control text_area" type="password" placeholder="password" class="mb-3" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="mb-4 text_area">
-                <input asp-for="ConfirmPassword" class="form-control text_area" type="password" placeholder="Confirm Password" class="mb-3" />
-                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-            </div>
-
-            
-        
-        <input type="submit" value="Register" class="Btn" />
-        <p class="text-center mt-2 .text-content">Already have an account? <a asp-controller="Account" asp-action="Login" class="text-decoration-none">Login</a></p>
-        <div class="text-center">
-            <a asp-controller="Home" asp-action="Index" class="text-decoration-none mt-3 .text-content">Back</a>
+<!-- Background Image Section -->
+<div class="bg-container">
+    <img src="~/img/login.jpg" alt="Account Banner" class="bg-image">
+    <div class="overlay-content">
+        <div class="breadcrumb">
+            <p><a href="@Url.Action("Index", "Home")">Home</a>  /  <span class="breadcrumb-active">Create Account</span></p>
         </div>
-        </form>
-
+        <h1 class="account-heading"> Create Account</h1>
     </div>
 </div>
+
+
+<div class="container account-container">
+    <div class="row justify-content-center">
+        <div class="col-md-6 p-5 register-box">
+            <h2 class="mb-3 text-center">Create Account</h2>
+            <p class="text-muted text-center" style="color: rgb(255 255 255 / 75%) !important">Please register using your details below.</p>
+
+            <form asp-action="Register" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="mb-3">
+                    <label class="form-label">First Name</label>
+                    <input asp-for="Name" class="form-control custom-input" type="text" placeholder="First Name" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                
+                <div class="mb-3">
+                    <label class="form-label">Email Address</label>
+                    <input asp-for="Email" class="form-control custom-input" type="email" placeholder="Email Address" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <input asp-for="Password" class="form-control custom-input" type="password" placeholder="Password" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Confirm Password</label>
+                    <input asp-for="ConfirmPassword" class="form-control custom-input" type="password" placeholder="Confirm Password" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100 mt-3">Create →</button>
+
+                <p class="text-center mt-3">SSL Secure</p>
+            </form>
+
+            <p class="text-center mt-3">Already have an account? <a asp-controller="Account" asp-action="Login" class="text-decoration-none">Login</a></p>
+
+            <div class="text-center">
+                <a asp-controller="Home" asp-action="Index" class="back-to-shop">Back</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+

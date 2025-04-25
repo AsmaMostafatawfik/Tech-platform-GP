@@ -1,0 +1,217 @@
+﻿@model GP.Data.DTOs.OrderResponse
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container py-5">
+    <h2 class="mb-4 text-center">Order Details</h2>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="card shadow rounded">
+        <div class="card-body">
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <p><strong>Order ID:</strong> @Model.OrderID</p>
+                    <p><strong>Order Date:</strong> @Model.OrderDate.ToString("MMM dd, yyyy")</p>
+                    <p><strong>Total Amount:</strong> <span class="text-success fw-bold">$@Model.TotalAmount.ToString("F2")</span></p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p>
+                        <strong>Status:</strong>
+                        <span class="badge
+                            @(Model.Status == "Pending" ? "bg-warning" :
+                              Model.Status == "Confirmed" ? "bg-info" :
+                              Model.Status == "Shipped" ? "bg-primary" :
+                              Model.Status == "Delivered" ? "bg-success" : "bg-danger")">
+                            @Model.Status
+                        </span>
+                    </p>
+                </div>
+            </div>
+
+            <hr />
+            <h4 class="mb-3">Order Items</h4>
+            <div class="table-responsive mb-4">
+                <table class="table table-bordered table-striped align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Product Name</th>
+                            <th class="text-center">Quantity</th>
+                            <th class="text-end">Unit Price</th>
+                            <th class="text-end">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.OrderDetails)
+                        {
+                            <tr>
+                                <td>@item.ProductName</td>
+                                <td class="text-center">@item.Quantity</td>
+                                <td class="text-end">$@item.Price</td>
+                                <td class="text-end">$@(item.Price * item.Quantity).ToString("F2")</td>
+                            </tr>
+                        }
+                        <tr class="table-light fw-bold">
+                            <td colspan="3" class="text-end">Order Total:</td>
+                            <td class="text-end text-success">$@Model.TotalAmount.ToString("F2")</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            @if (Model.Status == "Pending")
+            {
+                <div class="d-flex gap-2 mb-4">
+                    <form asp-action="Confirm" method="post">
+                        <input type="hidden" name="orderId" value="@Model.OrderID" />
+                        <button type="submit" class="btn btn-success">Confirm Order</button>
+                    </form>
+                    <form asp-action="Cancel" method="post">
+                        <input type="hidden" name="orderId" value="@Model.OrderID" />
+                        <button type="submit" class="btn btn-danger">Cancel Order</button>
+                    </form>
+                </div>
+            }
+
+            @if (User.IsInRole("Admin"))
+            {
+                <h4 class="mb-3">Admin Controls</h4>
+                <form asp-action="UpdateStatus" method="post" class="row g-3 align-items-center">
+                    <input type="hidden" name="orderId" value="@Model.OrderID" />
+                    <div class="col-md-6">
+                        <select name="Status" class="form-select">
+                            <option value="Pending">Pending</option>
+                            <option value="Confirmed">Confirmed</option>
+                            <option value="Shipped">Shipped</option>
+                            <option value="Delivered">Delivered</option>
+                            <option value="Canceled">Canceled</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 text-md-end">
+                        <button type="submit" class="btn btn-primary">Update Status</button>
+                    </div>
+                </form>
+            }
+        </div>
+    </div>
+</div>
+
+
+
+
+@* @model GP.Data.DTOs.OrderResponse *@
+
+@* @{ *@
+@*     Layout = "~/Views/Shared/_Layout.cshtml"; *@
+@* } *@
+
+@* <div class="container py-5"> *@
+@*     <h2 class="mb-4 text-center">Order Details</h2> *@
+
+@*     @if (TempData["SuccessMessage"] != null) *@
+@*     { *@
+@*         <div class="alert alert-success alert-dismissible fade show" role="alert"> *@
+@*             @TempData["SuccessMessage"] *@
+@*             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> *@
+@*         </div> *@
+@*     } *@
+
+@*     @if (TempData["ErrorMessage"] != null) *@
+@*     { *@
+@*         <div class="alert alert-danger alert-dismissible fade show" role="alert"> *@
+@*             @TempData["ErrorMessage"] *@
+@*             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> *@
+@*         </div> *@
+@*     } *@
+
+@*     <div class="card shadow rounded"> *@
+@*         <div class="card-body"> *@
+@*             <div class="row mb-4"> *@
+@*                 <div class="col-md-6"> *@
+@*                     <p><strong>Order ID:</strong> @Model.OrderID</p> *@
+@*                     <p><strong>Order Date:</strong> @Model.OrderDate.ToString("MMM dd, yyyy")</p> *@
+@*                     <p><strong>Total Amount:</strong> <span class="text-success fw-bold">$@Model.TotalAmount</span></p> *@
+@*                 </div> *@
+@*                 <div class="col-md-6 text-md-end"> *@
+@*                     <p> *@
+@*                         <strong>Status:</strong> *@
+@*                         <span class="badge *@
+@*                             @(Model.Status == "Pending" ? "bg-warning" : *@
+@*                               Model.Status == "Confirmed" ? "bg-info" : *@
+@*                               Model.Status == "Shipped" ? "bg-primary" : *@
+@*                               Model.Status == "Delivered" ? "bg-success" : "bg-danger")"> *@
+@*                             @Model.Status *@
+@*                         </span> *@
+@*                     </p> *@
+@*                 </div> *@
+@*             </div> *@
+
+@*             <hr /> *@
+@*             <h4 class="mb-3">Items</h4> *@
+@*             <ul class="list-group mb-4"> *@
+@*                 @foreach (var item in Model.OrderDetails) *@
+@*                 { *@
+@*                     <li class="list-group-item d-flex justify-content-between align-items-center"> *@
+@*                         <div> *@
+@*                             <span class="fw-medium">@item.ProductName</span> *@
+@*                             <small class="text-muted">@item.Quantity</small> *@
+@*                         </div> *@
+@*                         <span>$@item.Price</span> *@
+@*                     </li> *@
+@*                 } *@
+@*             </ul> *@
+
+@*             @if (Model.Status == "Pending") *@
+@*             { *@
+@*                 <div class="d-flex gap-2 mb-4"> *@
+@*                     <form asp-action="Confirm" method="post"> *@
+@*                         <input type="hidden" name="orderId" value="@Model.OrderID" /> *@
+@*                         <button type="submit" class="btn btn-success">Confirm Order</button> *@
+@*                     </form> *@
+@*                     <form asp-action="Cancel" method="post"> *@
+@*                         <input type="hidden" name="orderId" value="@Model.OrderID" /> *@
+@*                         <button type="submit" class="btn btn-danger">Cancel Order</button> *@
+@*                     </form> *@
+@*                 </div> *@
+@*             } *@
+
+@*             @if (User.IsInRole("Admin")) *@
+@*             { *@
+@*                 <h4 class="mb-3">Admin Controls</h4> *@
+@*                 <form asp-action="UpdateStatus" method="post" class="row g-3 align-items-center"> *@
+@*                     <input type="hidden" name="orderId" value="@Model.OrderID" /> *@
+@*                     <div class="col-md-6"> *@
+@*                         <select name="Status" class="form-select"> *@
+@*                             <option value="Pending">Pending</option> *@
+@*                             <option value="Confirmed">Confirmed</option> *@
+@*                             <option value="Shipped">Shipped</option> *@
+@*                             <option value="Delivered">Delivered</option> *@
+@*                             <option value="Canceled">Canceled</option> *@
+@*                         </select> *@
+@*                     </div> *@
+@*                     <div class="col-md-6 text-md-end"> *@
+@*                         <button type="submit" class="btn btn-primary">Update Status</button> *@
+@*                     </div> *@
+@*                 </form> *@
+@*             } *@
+@*         </div> *@
+@*     </div> *@
+@* </div> *@
+
+

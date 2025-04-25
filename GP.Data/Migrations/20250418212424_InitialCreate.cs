@@ -83,7 +83,9 @@ namespace GP.Data.Migrations
                     Status = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     TransactionDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    OrderID = table.Column<int>(type: "int", nullable: false)
+                    OrderID = table.Column<int>(type: "int", nullable: false),
+                    StripeSessionId = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
@@ -254,7 +256,9 @@ namespace GP.Data.Migrations
                     TotalAmount = table.Column<int>(type: "int", nullable: false),
                     Status = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    PaymentTransactionID = table.Column<int>(type: "int", nullable: false)
+                    PaymentTransactionID = table.Column<int>(type: "int", nullable: false),
+                    ShippingAddress = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {

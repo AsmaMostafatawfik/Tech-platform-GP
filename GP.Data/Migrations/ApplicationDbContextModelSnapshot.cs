@@ -17,7 +17,7 @@ namespace GP.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.2")
+                .HasAnnotation("ProductVersion", "9.0.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
@@ -106,6 +106,9 @@ namespace GP.Data.Migrations
                     b.Property<int>("PaymentTransactionID")
                         .HasColumnType("int");
 
+                    b.Property<string>("ShippingAddress")
+                        .HasColumnType("longtext");
+
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -174,6 +177,9 @@ namespace GP.Data.Migrations
 
                     b.Property<string>("Status")
                         .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("StripeSessionId")
                         .HasColumnType("longtext");
 
                     b.Property<DateTime>("TransactionDate")

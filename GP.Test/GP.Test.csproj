@@ -17,7 +17,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GP.Business\GP.Business.csproj" />
-    <ProjectReference Include="..\GP.Common\GP.Common.csproj" />
     <ProjectReference Include="..\GP.Data\GP.Data.csproj" />
   </ItemGroup>
 

@@ -21,7 +21,7 @@ namespace GP.Data.Entities
         [ForeignKey("PaymentTransactionID")]
         public virtual PaymentTransaction? PaymentTransaction { get; set; }
         public ICollection<OrderDetails> OrderDetails { get; set; } = new List<OrderDetails>();
-
+        public string? ShippingAddress { get; set; } // New field for shipping address
 
 
 

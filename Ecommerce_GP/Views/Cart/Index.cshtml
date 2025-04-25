@@ -1,4 +1,4 @@
-@using GP.Data.Entities;
+@using GP.Data.Entities
 @model List<ShoppingCart>
 
 <div class="bg-container">
@@ -7,46 +7,188 @@
         <p><a href="Index" class="text-white">Home</a> / Shopping Cart</p>
     </div>
 </div>
+
 @{
-    decimal total = 0;
+    decimal total = ViewBag.TotalAmount; // Use total from ViewBag
 }
 
 <div class="cart-container">
     <h2 class="text-center mb-4"><i class="fas fa-shopping-cart"></i> Your Cart</h2>
-    <div id="cart-items"></div>
-    @foreach (var item in Model)
-    {
-    <div class="cart-card mb-3">
-            @if( item.Product!=null&&item.Product.Image !=null ){
-            var img = Convert.ToBase64String(item.Product.Image);
-            var path = $"data:image/png;base64,{img}";
 
-            <img src="@path" alt="@item.Product.Name">
-            <div class="cart-info">
-                <h5>@item.Product.Name</h5>
-                <p>Quantity: @item.Quantity</p>
-                @{
-                    total += item.Product.Price * item.Quantity;
-                }
-                <span class="cart-total">@(item.Product.Price*item.Quantity)</span>
-            </div>
-            <button class="delete-btn" onclick="removeItem(@item.CartID})">
-                <i class="fas fa-trash"></i>
-        </button>
-            }
-            else
+    @if (Model.Count == 0)
+    {
+        <p>Your cart is empty.</p>
+    }
+    else
+    {
+        <div id="cart-items">
+            @foreach (var item in Model)
             {
-            <p>Product information is unavailable.</p>
+                <div class="cart-card mb-3">
+                    @if (item.Product != null && item.Product.Image != null)
+                    {
+                        var img = Convert.ToBase64String(item.Product.Image);
+                        var path = $"data:image/png;base64,{img}";
+
+                        <img src="@path" alt="@item.Product.Name" />
+                        <div class="cart-info">
+                            <h5>@item.Product.Name</h5>
+                            <div class="quantity-controls">
+                                <!-- Decrease Quantity Button -->
+                                <form asp-action="DecreaseQuantity" method="post" style="display:inline;">
+                                    <input type="hidden" name="productId" value="@item.ProductID" />
+                                    <button type="submit" class="btn btn-sm btn-secondary">-</button>
+                                </form>
+
+                                <!-- Quantity Display -->
+                                <span class="quantity">@item.Quantity</span>
+
+                                <!-- Increase Quantity Button -->
+                                <form asp-action="IncreaseQuantity" method="post" style="display:inline;">
+                                    <input type="hidden" name="productId" value="@item.ProductID" />
+                                    <button type="submit" class="btn btn-sm btn-secondary">+</button>
+                                </form>
+                            </div>
+
+                            <span class="cart-total">$@(item.Product.Price * item.Quantity)</span>
+                        </div>
+
+                        <!-- Remove Item Button -->
+                        <form asp-action="RemoveFromCart" method="post" style="display:inline;">
+                            <input type="hidden" name="productId" value="@item.ProductID" />
+                            <button type="submit" class="btn btn-sm btn-danger delete-btn">
+                                <i class="fas fa-trash"></i> Remove
+                            </button>
+                        </form>
+                    }
+                    else
+                    {
+                        <p>Product information is unavailable.</p>
+                    }
+                </div>
             }
-    </div>
-           
-        }
+        </div>
+
         <hr>
         <h4 class="text-end">Total: <span id="cart-total">$@total</span></h4>
-        @* <button class="btn btn-warning checkout-btn">Proceed to Pay</button> *@
-        <a class="btn btn-warning checkout-btn text-white text-center d-block" asp-area="" asp-controller="PaymentTransaction" asp-action="Index">
-        Proceed to Pay
-    </a>
-    </div>
-    
-    
+
+        <!-- Clear Cart Button -->
+        <form asp-action="ClearCart" method="post" style="display:inline;">
+            <button type="submit" class="btn btn-danger">Clear Cart</button>
+        </form>
+
+        <!-- Proceed to Pay Button -->
+        <form asp-controller="Order" asp-action="CreateCheckoutSession" method="post" style="display:inline;">
+            <input type="hidden" name="amount" value="@total" />
+            <button type="submit" class="btn btn-warning checkout-btn text-white text-center d-block">Proceed to Pay</button>
+        </form>
+    }
+</div>
+
+
+
+
+
+
+
+@* @using GP.Data.Entities *@
+@* @model List<ShoppingCart> *@
+
+@* <div class="bg-container"> *@
+@*     <div class="overlay-content"> *@
+@*         <h1 class="display-4">Shopping Cart</h1> *@
+@*         <p><a href="Index" class="text-white">Home</a> / Shopping Cart</p> *@
+@*     </div> *@
+@* </div> *@
+
+@* @{ *@
+@*     decimal total = 0; *@
+@* } *@
+
+@* <div class="cart-container"> *@
+@*     <h2 class="text-center mb-4"><i class="fas fa-shopping-cart"></i> Your Cart</h2> *@
+
+@*     @if (Model.Count == 0) *@
+@*     { *@
+@*         <p>Your cart is empty.</p> *@
+@*     } *@
+@*     else *@
+@*     { *@
+@*         <div id="cart-items"> *@
+@*             @foreach (var item in Model) *@
+@*             { *@
+@*                 <div class="cart-card mb-3"> *@
+@*                     @if (item.Product != null && item.Product.Image != null) *@
+@*                     { *@
+@*                         var img = Convert.ToBase64String(item.Product.Image); *@
+@*                         var path = $"data:image/png;base64,{img}"; *@
+
+@*                         <img src="@path" alt="@item.Product.Name" /> *@
+@*                         <div class="cart-info"> *@
+@*                             <h5>@item.Product.Name</h5> *@
+@*                             <div class="quantity-controls"> *@
+@*                                 <!-- Decrease Quantity Button --> *@
+@*                                 <form asp-action="DecreaseQuantity" method="post" style="display:inline;"> *@
+@*                                     <input type="hidden" name="productId" value="@item.ProductID" /> *@
+@*                                     <button type="submit" class="btn btn-sm btn-secondary">-</button> *@
+@*                                 </form> *@
+
+@*                                 <!-- Quantity Display --> *@
+@*                                 <span class="quantity">@item.Quantity</span> *@
+
+@*                                 <!-- Increase Quantity Button --> *@
+@*                                 <form asp-action="IncreaseQuantity" method="post" style="display:inline;"> *@
+@*                                     <input type="hidden" name="productId" value="@item.ProductID" /> *@
+@*                                     <button type="submit" class="btn btn-sm btn-secondary">+</button> *@
+@*                                 </form> *@
+@*                             </div> *@
+
+@*                             @{ *@
+@*                                 total += item.Product.Price * item.Quantity; *@
+@*                             } *@
+
+@*                             <span class="cart-total">$@(item.Product.Price * item.Quantity)</span> *@
+@*                         </div> *@
+
+@*                         <!-- Remove Item Button --> *@
+@*                         <form asp-action="RemoveFromCart" method="post" style="display:inline;"> *@
+@*                             <input type="hidden" name="productId" value="@item.ProductID" /> *@
+@*                             <button type="submit" class="btn btn-sm btn-danger delete-btn"> *@
+@*                                 <i class="fas fa-trash"></i> Remove *@
+@*                             </button> *@
+@*                         </form> *@
+@*                     } *@
+@*                     else *@
+@*                     { *@
+@*                         <p>Product information is unavailable.</p> *@
+@*                     } *@
+@*                 </div> *@
+@*             } *@
+@*         </div> *@
+
+@*         <hr> *@
+@*         <h4 class="text-end">Total: <span id="cart-total">$@total</span></h4> *@
+
+@*         <!-- Clear Cart Button --> *@
+@*         <form asp-action="ClearCart" method="post" style="display:inline;"> *@
+@*             <button type="submit" class="btn btn-danger">Clear Cart</button> *@
+@*         </form> *@
+
+@*         <a class="btn btn-warning checkout-btn text-white text-center d-block" asp-area="" asp-controller="PaymentTransaction" asp-action="Index"> *@
+@*             Proceed to Pay *@
+@*         </a> *@
+@*     } *@
+@* </div> *@
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,65 @@
+﻿@* @model GP.Data.DTOs.CheckoutRequest *@
+
+
+
+
+@* <h2>Checkout</h2> *@
+@* @if (TempData["ErrorMessage"] != null) *@
+@* { *@
+@*     <div class="alert alert-danger">@TempData["ErrorMessage"]</div> *@
+@* } *@
+
+@* <form asp-action="Checkout" method="post"> *@
+@*     <div class="form-group"> *@
+@*         <label for="ShippingAddress">Shipping Address</label> *@
+@*         <input asp-for="ShippingAddress" class="form-control" required /> *@
+@*     </div> *@
+@*     <button type="submit" class="btn btn-primary">Proceed to Payment</button> *@
+@* </form> *@
+
+
+
+
+
+@model GP.Data.DTOs.CheckoutRequest
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="mb-0">Checkout</h2>
+                </div>
+                <div class="card-body">
+                    @if (TempData["ErrorMessage"] != null)
+                    {
+                        <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+                    }
+
+                    <form asp-action="Checkout" method="post">
+                        <div class="form-group mb-3">
+                            <label asp-for="ShippingAddress" class="form-label">Shipping Address</label>
+                            <input asp-for="ShippingAddress" class="form-control" required />
+                            <span asp-validation-for="ShippingAddress" class="text-danger"></span>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Proceed to Payment</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+

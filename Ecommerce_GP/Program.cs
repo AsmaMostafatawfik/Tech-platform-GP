@@ -2,6 +2,9 @@ using GP.Business.Interfaces;
 using GP.Business.Services;
 using GP.Data.Data;
 using GP.Data.Entities;
+using GP.Data.Interface;
+using GP.Data.Repositories;
+using GP.Data.Repository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,7 +12,7 @@ namespace Ecommerce_GP
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -17,7 +20,23 @@ namespace Ecommerce_GP
 
             // Register Services
             builder.Services.AddScoped<IAuthService, AuthService>();
+            builder.Services.AddScoped<IProductService, ProductService>();
+            builder.Services.AddScoped<ICartService, CartService>();
+            builder.Services.AddScoped<IProductRepository, ProductRepository>();
+            builder.Services.AddScoped<IOrderService, OrderService>();
+            //builder.Services.AddScoped<IAdminService, AdminService>();
             builder.Services.AddScoped<ReviewService>();
+
+
+            //Register Repositories
+            builder.Services.AddScoped(serviceType: typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            builder.Services.AddScoped<IProductRepository, ProductRepository>();
+            builder.Services.AddScoped<IUserRepository, UserRpository>();
+            //builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+            builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+            builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
+            builder.Services.AddScoped<ICartRepository, CartRepository>();
+            builder.Services.AddScoped<IPaymentService, PaymentService>();
 
 
 
@@ -26,16 +45,17 @@ namespace Ecommerce_GP
 
             // Database Configuration
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseMySql(
-                    builder.Configuration.GetConnectionString("DefaultConnection"),
-                    ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))
-                )
-            );
+            options.UseMySql(
+        builder.Configuration.GetConnectionString("DefaultConnection"),
+        ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))
+    )
+);
 
             // Add Identity Services
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders(); // Enables token generation for password reset, email confirmation, etc.
+      .AddEntityFrameworkStores<ApplicationDbContext>()
+      .AddDefaultTokenProviders(); // Enables token generation for password reset, email confirmation, etc.
+
 
             // Configure Identity Cookie Settings
             builder.Services.ConfigureApplicationCookie(options =>
@@ -52,6 +72,8 @@ namespace Ecommerce_GP
 
             var app = builder.Build();
 
+
+
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
@@ -63,6 +85,11 @@ namespace Ecommerce_GP
             app.UseStaticFiles(); // Ensure static files are served
 
             app.UseRouting();
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                await RoleBasedService.seedRolesAdminsAndUser(services);
+            }
 
             app.UseAuthentication(); // Add Authentication Middleware
             app.UseAuthorization();  // Add Authorization Middleware
